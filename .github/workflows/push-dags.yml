@@ -20,4 +20,5 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          aws s3 cp dags/tenant2_dag.py s3://airflow-dags-central/tenant2/tenant2_dag.py
+          aws s3 cp dags/tenant2_dag.py s3://dags/tenant2/tenant2_dag.py \
+            --endpoint-url ${{ secrets.S3_ENDPOINT_URL }}
