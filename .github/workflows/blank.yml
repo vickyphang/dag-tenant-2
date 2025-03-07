@@ -1,0 +1,23 @@
+name: Push Tenant 2 DAGs to S3
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  push-dags:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      # - name: Validate DAGs
+      #   run: |
+      #     pip install apache-airflow
+      #     airflow dags validate dags/tenant1_dag.py
+
+      - name: Push DAGs to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp dags/tenant2_dag.py s3://airflow-dags-central/tenant2/tenant2_dag.py
